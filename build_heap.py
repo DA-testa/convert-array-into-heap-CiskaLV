@@ -1,38 +1,58 @@
 # python3
+import math
 
 
-def build_heap(data):
+def build_heap(n, data):
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
 
+    def swap(child, parent):
+        if (data[parent] <= data[child]):
+            return None
+        data[child], data[parent] = data[parent], data[child]
+        return (parent, child)
+
+    for i in range(n - 1, -1, -1):
+        parent = math.floor((i - 1) / 2)
+
+        while parent >= 0:
+            swap_i = swap(i, parent)
+            if swap_i is not None:
+                swaps.append(swap_i)
+            i = parent
+            parent = math.floor((i - 1) / 2)
 
     return swaps
 
 
 def main():
-    
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
+    text = input()
+    number = 0
+    if text[0] == "I":
+        print("Enter number of nodes: ")
+        number = int(input())
+        data = list(map(int, input().split()))
 
+    elif text[0] == "F":
+        fileName = input()
+        if "a" in fileName:
+            print("Invalid file name")
+            return
+        else:
+            if "tests/" not in fileName:
+                fileName = "tests/" + fileName
+            file = open(fileName, "r")
+            number = int(file.readline())
+            data = list(map(int, file.readline().split()))
 
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
+    else:
+        print("Invalid input")
+        return
 
-    # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
-
-    # calls function to assess the data 
-    # and give back all swaps
-    swaps = build_heap(data)
-
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
+    assert len(data) == number
+    swaps = build_heap(number ,data)
 
     # output all swaps
+
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
