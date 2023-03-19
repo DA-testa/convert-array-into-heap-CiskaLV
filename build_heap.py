@@ -9,7 +9,7 @@ def build_heap(n, data):
         if (data[parent] <= data[child]):
             return None
         data[child], data[parent] = data[parent], data[child]
-        return (child, parent)
+        return (parent, child)
 
     for i in range(n - 1, -1, -1):
         parent = math.floor((i - 1) / 2)
