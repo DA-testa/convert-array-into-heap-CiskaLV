@@ -38,8 +38,8 @@ def main():
             print("Invalid file name")
             return
         else:
-            if "/test/" not in fileName:
-                fileName = "/test/" + fileName
+            if "tests/" not in fileName:
+                fileName = "tests/" + fileName
             file = open(fileName, "r")
             number = int(file.readline())
             data = list(map(int, file.readline().split()))
